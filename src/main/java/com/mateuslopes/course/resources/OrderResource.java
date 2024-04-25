@@ -2,6 +2,7 @@ package com.mateuslopes.course.resources;
 
 import com.mateuslopes.course.entities.Order;
 import com.mateuslopes.course.repositories.OrderRepository;
+import com.mateuslopes.course.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class OrderResource {
 
     @Autowired
-    OrderRepository service;
+    OrderService service;
 
     @GetMapping
     public ResponseEntity<List<Order>> findAllOrders() {
@@ -26,8 +27,8 @@ public class OrderResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Order> findById(@PathVariable long id) {
-        Optional<Order> obj = service.findById(id);
-        return ResponseEntity.ok().body(obj.get());
+    public ResponseEntity<Order> findById(@PathVariable Long id) {
+        Order obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
 }
