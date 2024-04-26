@@ -2,9 +2,7 @@ package com.mateuslopes.course.config;
 
 import com.mateuslopes.course.entities.*;
 import com.mateuslopes.course.entities.enums.OrderStatus;
-import com.mateuslopes.course.repositories.CategoryRepository;
-import com.mateuslopes.course.repositories.OrderRepository;
-import com.mateuslopes.course.repositories.UserRepository;
+import com.mateuslopes.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +20,12 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,8 +40,12 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.DELIVERED, u2);
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
+        Product p1 = new Product(null, "Tv", "42 polegadas", 2000.00, "aaa");
+        Product p2 = new Product(null, "Notebook", "Ryzen 7", 5000.00, "aaa");
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c1, c2));
+        productRepository.saveAll(Arrays.asList(p1,p2));
     }
 }
